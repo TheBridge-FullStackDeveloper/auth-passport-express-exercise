@@ -38,7 +38,6 @@ const isAuthenticated = require("./middleware/isAuthenticated");
 app.use("/", router);
 
 app.use("/", isAuthenticated, (req, res) => {
-    console.log(req.user);
     res.render("profile", { user: req.user });
   });
 
