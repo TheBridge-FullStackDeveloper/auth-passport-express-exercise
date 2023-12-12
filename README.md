@@ -1,28 +1,54 @@
-![Logotipo de The Bridge](https://user-images.githubusercontent.com/27650532/77754601-e8365180-702b-11ea-8bed-5bc14a43f869.png "Logotipo de The Bridge")
+![logotipo de The Bridge](https://user-images.githubusercontent.com/27650532/77754601-e8365180-702b-11ea-8bed-5bc14a43f869.png 'logotipo de The Bridge')
 
-# 🚀 The Bridge - 💼 Express Authentication and Forum Exercise
+# 🚀 The bridge - 📘 Blog handlebars
 
 ## 📝 Descripción del Ejercicio
-En este ejercicio, te adentrarás en el mundo de la autenticación en aplicaciones web usando Express y Passport. Implementarás un sistema de autenticación y luego crearás un foro donde los usuarios pueden interactuar mediante publicaciones.
+
+Este ejercicio está diseñado para enseñarte a utilizar el motor de plantillas handlebars en express.
 
 ## 📖 Instrucciones
 
-1. 🍴 Haz un fork del repositorio proporcionado.
-2. 📥 Clona el repositorio a tu máquina local.
-3. 🎯 Implementa un sistema de autenticación usando Express y Passport como se mostró en clase.
-4. ✅ Crea un foro donde los usuarios puedan crear publicaciones y ver las de otros.
-5. 📤 Haz commit de tus cambios y sube tu rama a tu fork.
-6. 📧 Abre un Pull Request para que podamos revisar tu código.
+1. 🍴 Haz fork del repositorio.
+2. 📥 Clona tu fork del repositorio.
+3. 🎯 Crea las consultas en express para obtener las informaciones, crear las pagina y mostrarlas en el navegador. (recuerda iniciar Prisma)
+4. ✅ Ejecuta tus consultas para asegurarte de que funcionan como se espera.
+5. 📤 Haz commit y push de tus cambios al repositorio.
+6. 📧 Abre un Pull Request con tus soluciones para revisión.
 
-✔️ Tareas a Realizar
-1. Configura un proyecto Express y establece las rutas necesarias.
-2. Implementa la autenticación utilizando Passport. Asegúrate de permitir el registro y el inicio de sesión de usuarios.
-3. Crea un modelo de base de datos para las publicaciones del foro.
-4. Implementa funcionalidades en el foro para que los usuarios puedan:
-   - Crear nuevas publicaciones.
-   - Ver todas las publicaciones existentes.
-   - Borrar sus propias publicaciones, pero no las de los demás.
-5. Asegúrate de proteger las rutas del foro, permitiendo solo a los usuarios autenticados crear y ver publicaciones.
+⬇️ Realiza un seed.js para llenar tu base de datos.
 
-🏆 Bonus
-Implementa un Login con github: https://www.passportjs.org/packages/passport-github2/
+# ✔️ Tareas a Realizar
+
+## Crear la base de datos
+
+- [ ] Crear la base de datos con una tabla con este modelo de Post
+
+```prisma
+model Post {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  content   String?
+  published Boolean  @default(false)
+}
+```
+
+## Crear las rutas
+
+- [ ] GET - `/posts` - Crear la ruta para obtener todos los posts
+- [ ] POST - `/posts` - Crear la ruta para crear un post
+- [ ] GET - `/posts/:id` - Crear la ruta para obtener un post por su id
+- [ ] PUT - `/posts/:id` - Crear la ruta para actualizar un post por su id
+- [ ] DELETE - `/posts/:id` - Crear la ruta para eliminar un post por su id
+
+## Crear las vistas con handlebars
+
+- [ ] Crear la vista para mostrar todos los posts
+- [ ] Crear la vista para mostrar un post
+- [ ] Crear la vista para crear y actualizar un post, con un formulario
+- [ ] Crear un partial de navegación para navegar entre las vistas
+
+## Bonus
+
+- [ ] Crear un helper para formatear la fecha de creación de un post en el formato `DD/MM/YYYY`
