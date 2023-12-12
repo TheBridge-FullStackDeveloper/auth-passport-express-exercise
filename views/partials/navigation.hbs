@@ -1,6 +1,8 @@
 <nav>
-  <a href="/posts">All posts</a>
-  <a href="/posts/create">Create a new post</a>
+  {{#if user}}
+    <a href="/posts">All posts</a>
+    <a href="/posts/create">Create a new post</a>
+  {{/if}}
   <a href="/auth/register-page">Register</a>
   <a href="/auth/login-page">Login page</a>
 </nav>

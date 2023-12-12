@@ -34,6 +34,7 @@ router.post("/create", async (req, res) => {
         title,
         content,
         published: isPublished,
+        authorId: req.user.id
       },
     });
     res.redirect("/posts");
@@ -87,6 +88,7 @@ router.put("/update/:id", async (req, res) => {
         title,
         content,
         published: isPublished,
+        authorId: req.user.id
       },
     });
     res.redirect("/posts");
