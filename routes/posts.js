@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../prisma");
-const isAuthenticated = require("../middleware/isAuthenticated");
 
 // GET - /posts - Crear la ruta para obtener todos los posts
 
@@ -54,14 +53,25 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const postById = await prisma.post.findUnique({
+      include: {
+        author: {
+          select: {
+            username: true,
+          },
+        },
+      },
       where: {
         id,
       },
     });
+    //Testing
+    console.log(postById);
+    //Testing
     res.render("singlePost", {
       title: postById.title,
       post: postById,
       user: req.user,
+      isAuthorUser: postById.authorId === req.user.id
     });
   } catch (error) {
     console.error(error);

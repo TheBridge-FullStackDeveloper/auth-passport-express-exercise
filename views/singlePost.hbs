@@ -1,8 +1,16 @@
 <div>
   <h1>{{post.title}}</h1>
   <p class="content">Content: {{post.content}}</p>
+  <br>
   <p class="content">Post created: {{formatDate post.createdAt}}</p>
-  {{#if (eq post.authorId user.id)}}
+  <br>
+  <p class="content">Author ID: {{post.authorId}}</p>
+  <br>
+  <p class="content">Author Name: {{post.author.username}}</p>
+  <br>
+  <p class="content">User ID: {{user.id}}</p>
+  <br>
+  {{#if isAuthorUser}}
     <div id="divButtons">
       <a href="/posts/update/{{post.id}}">
         <button>Modify</button>
