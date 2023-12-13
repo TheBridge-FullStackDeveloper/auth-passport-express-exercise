@@ -5,7 +5,7 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 
 // GET - /posts - Crear la ruta para obtener todos los posts
 
-router.get("/", isAuthenticated, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const posts = await prisma.post.findMany();
     res.render("allPosts", { user: req.user, posts: posts });
@@ -17,7 +17,7 @@ router.get("/", isAuthenticated, async (req, res) => {
 
 // POST - /posts - Crear la ruta para crear un post
 
-router.get("/create", isAuthenticated, async (req, res) => {
+router.get("/create", async (req, res) => {
   try {
     res.render("postFormCreate", {
       title: "Create a new post",
@@ -29,7 +29,7 @@ router.get("/create", isAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/create", isAuthenticated, async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     const { title, content, published } = req.body;
     const isPublished = published === "on" ? true : false;
@@ -50,7 +50,7 @@ router.post("/create", isAuthenticated, async (req, res) => {
 
 // GET - /posts/:id - Crear la ruta para obtener un post por su id
 
-router.get("/:id", isAuthenticated, async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const postById = await prisma.post.findUnique({
@@ -71,7 +71,7 @@ router.get("/:id", isAuthenticated, async (req, res) => {
 
 //PUT - /posts/:id - Crear la ruta para actualizar un post por su id
 
-router.get("/update/:id", isAuthenticated, async (req, res) => {
+router.get("/update/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const postById = await prisma.post.findUnique({
@@ -90,7 +90,7 @@ router.get("/update/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-router.put("/update/:id", isAuthenticated, async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     const { title, content, published } = req.body;
     const isPublished = published === "on" ? true : false;
@@ -112,7 +112,7 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
 
 //DELETE - /posts/:id - Crear la ruta para eliminar un post por su id
 
-router.delete("/delete/:id", isAuthenticated, async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     await prisma.post.delete({
       where: { id: req.params.id },
