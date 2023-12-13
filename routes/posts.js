@@ -6,7 +6,15 @@ const prisma = require("../prisma");
 
 router.get("/", async (req, res) => {
   try {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      include: {
+        author: {
+          select: {
+            username: true,
+          },
+        },
+      },
+    });
     res.render("allPosts", { user: req.user, posts: posts });
   } catch (error) {
     console.error(error);
@@ -71,7 +79,7 @@ router.get("/:id", async (req, res) => {
       title: postById.title,
       post: postById,
       user: req.user,
-      isAuthorUser: postById.authorId === req.user.id
+      isAuthorUser: postById.authorId === req.user.id,
     });
   } catch (error) {
     console.error(error);
