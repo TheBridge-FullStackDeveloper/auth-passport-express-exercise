@@ -3,11 +3,12 @@ const passport = require('passport');
 const prisma = require('../prisma/seed');
 const bcrypt = require('bcrypt');
 
+
 passport.use(new LocalStrategy(
-  async (username, password, done) => {
+  async (id, password, done) => {
     try {
       const user = await prisma.user.findUnique({
-        where: { username: username }
+        where: { userId: id }
       });
       if (!user) {
         return done(null, false, { message: 'Usuario no encontrado' });
@@ -23,12 +24,12 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.userId);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id: id } });
+    const user = await prisma.user.findUnique({ where: { userId: id } });
     done(null, user);
   } catch (error) {
     done(error, null);

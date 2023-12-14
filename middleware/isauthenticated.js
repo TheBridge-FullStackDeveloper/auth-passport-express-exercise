@@ -3,7 +3,7 @@ function isAuthenticated(req, res, next) {
       return next();
     }
   
-    res.redirect('/register');
+    res.redirect('/posts/register');
   }
   
   module.exports = isAuthenticated;

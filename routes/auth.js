@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const passport = require('passport');
+const prisma = require ('../prisma/seed');
 
 // Ruta de registro
 router.post('/register', async (req, res) => {
@@ -9,21 +10,21 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = await prisma.user.create({
       data: {
-        username: req.body.username,
-        password: hashedPassword
+        userName: req.body.username,
+        password: hashedPassword,
       }
     });
-    res.redirect('/login');
+    res.redirect('/posts/login');
   } catch (error) {
     console.log(error)
-    res.redirect('/register');
+    res.redirect('/posts/register');
   }
 });
 
 // Ruta de inicio de sesión
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/login',
+  failureRedirect: '/posts/login',
   failureFlash: true,
 }));
 

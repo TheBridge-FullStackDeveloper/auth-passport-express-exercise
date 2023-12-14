@@ -30,3 +30,9 @@ font-size: 50px;
     display: flex;
     justify-content: center;
   }
+
+  .buttonrelo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }

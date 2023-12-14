@@ -1,18 +1,18 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const isAuthenticated = require("../middleware/isauthenticated");
+const passport = require('passport');
 const prisma = require ('../prisma/seed');
 
 
-router.get('/login', isAuthenticated, (req, res) => {
+router.get('/login', (req, res) => {
     res.render('login');
   });
   
-  router.get('/register',  (req, res) => {
+  router.get('/register', (req, res) => {
     res.render('register');
   });
-
-
 
 router.get('/', async (req, res) => {
         const allPost = await prisma.post.findMany({});

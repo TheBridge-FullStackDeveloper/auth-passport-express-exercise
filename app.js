@@ -12,29 +12,33 @@ const hbs = create({
   partialsDir: 'views/partials',
   helpers: require('./utils/helpers'),
 });
+require('dotenv').config();
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
-app.use(passport.initialize());
-app.use(passport.session());
-require('./config/passport');
-
-app.engine('hbs', hbs.engine);
-app.set('view engine', 'hbs');
-app.set('views', './views');
-
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+require('./config/passport');
+
+
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+app.set('views', './views');
+
 app.get('/', (req, res) => {
   res.render('home', {
-      title: 'HBS'
+      title: 'Home Page'
   });
 });
 
