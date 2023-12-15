@@ -1,0 +1,27 @@
+<!-- posts.hbs ubicado en tu directorio de vistas, por ejemplo, views/posts.hbs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Todas las Publicaciones</title>
+    <!-- Agregar aquí enlaces a CSS o cualquier otra cabecera que necesites -->
+</head>
+<body>
+    <h1>Publicaciones</h1>
+    {{#each posts}}
+        <div class="post">
+            <h2>Publicado por: {{user.username}}</h2> <!-- Asumiendo que tienes un usuario asociado a cada post -->
+            <p>{{content}}</p>
+            <p>Fecha de publicación: {{createdAt}}</p>
+            <!-- Añadir un formulario para la eliminación de la publicación -->
+            <form action="/post/delete/{{_id}}" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Eliminar Publicación</button>
+            </form>
+        </div>
+    {{else}}
+        <p>No hay publicaciones para mostrar.</p>
+    {{/each}}
+    <!-- Aquí puedes agregar otros elementos de tu página o enlaces a otros scripts -->
+</body>
+</html>
