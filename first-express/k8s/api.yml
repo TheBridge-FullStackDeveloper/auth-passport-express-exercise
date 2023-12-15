@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-local-deployment
+  namespace: my-local-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-local-app
+  template:
+    metadata:
+      labels:
+        app: my-local-app
+    spec:
+      containers:
+      - name: my-local-container
+        image: first-express-server:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_HOST
+          value: "postgres-service"
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: DATABASE_URL
+          value: postgres://postgres:Pass2020!@postgres-service:5432/postgres-docker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-servicio
+  namespace: my-local-namespace
+spec:
+  selector:
+    app: my-local-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
