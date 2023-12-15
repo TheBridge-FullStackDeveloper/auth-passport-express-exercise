@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.Post.deleteMany({}); // <- Borra nada mas ejecutarse
-  const numberOfPosts = 20;
+  const numberOfPosts = 18;
 
   const posts = [];
 

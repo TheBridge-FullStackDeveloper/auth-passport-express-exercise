@@ -1,13 +1,14 @@
 <h1>Welcome, {{user.username}} !</h1>
 <div>
-  <p class="content">Username: {{user.username}}</p>
-  <p class="content">User ID: {{user.id}}</p>
+  <p class="content">My username: {{user.username}}</p>
+  <br />
+  <p class="content">My user ID: {{user.id}}</p>
 </div>
 <div>
   <ul>
     {{#each posts}}
       <li class="singlePost"><a href="/posts/{{this.id}}">{{this.title}}<br
-          />{{this.author.username}}</a></li>
+          /><br />{{this.author.username}}</a></li>
     {{/each}}
   </ul>
 </div>
