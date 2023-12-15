@@ -9,6 +9,7 @@ async function main() {
   const posts = [];
 
   for (let i = 0; i < numberOfPosts; i++) {
+    // I put the usersID manually in the users to try if it works
     const usersID = ["3d110403-3301-4dd9-a15d-e3c584ba4952", "d65496eb-c42c-485e-95e7-2f91db0fed3d"];
     const randomID= Math.floor(Math.random() * usersID.length);
     const createdAtTime = faker.date.past();
@@ -19,7 +20,7 @@ async function main() {
     const post = {
       createdAt: createdAtTime,
       updatedAt: updatedAtTime,
-      title: faker.lorem.words({ min: 5, max: 8 }),
+      title: faker.hacker.phrase(),
       content: faker.lorem.paragraphs({ min: 2, max: 5 }),
       authorId: usersID[randomID]
     };

@@ -5,6 +5,8 @@ const passport = require('passport');
 
 const prisma = require("../prisma");
 
+const isAuthenticated = require("../middleware/isAuthenticated");
+
 router.post('/signup', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -28,11 +30,11 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', {title: "Login"});
 });
 
 router.get('/signup', (req, res) => {
-  res.render('signup');
+  res.render('signup', {title: "Sign Up"});
 });
 
 router.get("/logout", (req, res) => {

@@ -1,3 +1,5 @@
+const prisma = require("./prisma");
+
 const express = require("express");
 const app = express();
 const PORT = 3000;
@@ -33,13 +35,23 @@ require("./config/passport");
 
 const router = require("./routes");
 const isAuthenticated = require("./middleware/isAuthenticated");
-
+const fetchAndSortPosts = require("./controllers/fetchAndSortPosts");
 
 app.use("/", router);
 
-app.use("/", isAuthenticated, (req, res) => {
-    res.render("profile", { user: req.user });
-  });
+app.use("/", isAuthenticated, async (req, res) => {
+  try {
+    const userPosts = await fetchAndSortPosts(prisma, req.user.id);
+
+    res.render("profile", {
+      title: "User profile",
+      user: req.user,
+      posts: userPosts,
+    });
+  } catch (error) {
+    res.json("Server error");
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
