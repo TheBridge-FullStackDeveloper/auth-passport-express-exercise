@@ -12,6 +12,7 @@ const hbs = create({
   partialsDir: "views/partials",
   helpers: require("./utils/helpers"),
 });
+const flash = require('connect-flash');
 const expressSession = require('express-session');
 const pgSession = require('connect-pg-simple')(expressSession);
 
@@ -37,6 +38,7 @@ app.use(
   })
 );
 
+app.use(flash());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
