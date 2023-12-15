@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
 
 // Ruta de inicio de sesión
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/posts',
   failureRedirect: '/auth/login-page',
   failureFlash: true,
 }));

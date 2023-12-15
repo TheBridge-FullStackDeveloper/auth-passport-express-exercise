@@ -12,10 +12,26 @@ const hbs = create({
   partialsDir: "views/partials",
   helpers: require("./utils/helpers"),
 });
+const expressSession = require('express-session');
+const pgSession = require('connect-pg-simple')(expressSession);
+
+require('dotenv').config();
+
+const pgPool = require("./config/pg-session");
+
+app.use(expressSession({
+  store: new pgSession({
+    pool : pgPool,
+    tableName : 'UserSession'
+  }),
+  secret: process.env.COOKIE_SECRET,
+  resave: false,
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+}));
 
 app.use(
   session({
-    secret: "tu_clave_secreta",
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
   })
