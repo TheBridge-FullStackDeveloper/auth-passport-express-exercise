@@ -11,4 +11,7 @@
   </div>
   <br />
   <button type="submit">Login</button>
+  {{#each error}}
+    <p style="color:red">{{this}}</p>
+  {{/each}}
 </form>

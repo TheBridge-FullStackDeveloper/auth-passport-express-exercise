@@ -7,8 +7,11 @@
 <div>
   <ul>
     {{#each posts}}
-      <li class="singlePost"><a href="/posts/{{this.id}}">{{this.title}}<br
-          /><br />{{this.author.username}}</a></li>
+      <li class="singlePost"><a href="/posts/{{this.id}}">{{capitalize
+            this.title
+          }}<br />{{capitalize this.author.username}}<br />{{formatDate
+            this.post.createdAt
+          }}</a></li>
     {{/each}}
   </ul>
 </div>

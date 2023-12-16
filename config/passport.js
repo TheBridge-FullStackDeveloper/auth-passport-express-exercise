@@ -10,10 +10,10 @@ passport.use(
         where: { username: username },
       });
       if (!user) {
-        return done(null, false, { message: "Usuario no encontrado" });
+        return done(null, false, { message: "User not found" });
       }
       if (!bcrypt.compareSync(password, user.password)) {
-        return done(null, false, { message: "Contraseña incorrecta" });
+        return done(null, false, { message: "Wrong password" });
       }
       return done(null, user);
     } catch (error) {
@@ -34,3 +34,4 @@ passport.deserializeUser(async (id, done) => {
     done(error, null);
   }
 });
+//los dos últimos son para el req.user

@@ -1,5 +1,6 @@
 const pg = require("pg");
 
+//para alcanzar las variables de entorno
 require("dotenv").config();
 
 const pgPool = new pg.Pool({

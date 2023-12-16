@@ -2,8 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["debian-openssl-1.0.x", "darwin-arm64"] // Añadir esta linea
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -33,5 +32,6 @@ model UserSession {
   sid    String   @id @db.VarChar
   sess   Json     @db.Json
   expire DateTime @db.Timestamp(6)
+
   @@index([expire], map: "IDX_session_expire")
 }

@@ -72,9 +72,6 @@ router.get("/:id", async (req, res) => {
         id,
       },
     });
-    //Testing
-    console.log(postById);
-    //Testing
     res.render("singlePost", {
       title: postById.title,
       post: postById,

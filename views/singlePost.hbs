@@ -1,11 +1,11 @@
 <div>
   <h1>{{post.title}}</h1>
   <p class="content">Content: {{post.content}}</p>
-  <br>
+  <br />
   <p class="content">Post created: {{formatDate post.createdAt}}</p>
-  <br>
+  <br />
   <p class="content">Author Name: {{post.author.username}}</p>
-  <br>
+  <br />
   <p class="content">User ID: {{user.id}}</p>
   {{#if isAuthorUser}}
     <div id="divButtons">

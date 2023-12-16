@@ -13,6 +13,7 @@ async function main() {
       "844bf92e-a0c6-4e8d-96c1-ade38f976d29",
       "4d7a94d0-c7b5-4ea2-aa3c-9ff96376c3b9",
       "4aaf0f3e-b688-4f74-acd2-2598ffd16b61",
+      "a49c3136-2982-4467-9365-cde8ca1b6882",
     ];
     const randomId = Math.floor(Math.random() * authorsId.length);
     const post = {
