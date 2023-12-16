@@ -1,0 +1,20 @@
+<div>
+  <h1>{{post.title}}</h1>
+  <p class="content">Content: {{post.content}}</p>
+  <br />
+  <p class="content">Post created: {{formatDate post.createdAt}}</p>
+  <br />
+  <p class="content">Author Name: {{post.author.username}}</p>
+  <br />
+  <p class="content">User ID: {{user.id}}</p>
+  {{#if isAuthorUser}}
+    <div id="divButtons">
+      <a href="/posts/update/{{post.id}}">
+        <button>Modify</button>
+      </a>
+      <form action="/posts/delete/{{post.id}}?_method=DELETE" method="post">
+        <button>Delete</button>
+      </form>
+    </div>
+  {{/if}}
+</div>

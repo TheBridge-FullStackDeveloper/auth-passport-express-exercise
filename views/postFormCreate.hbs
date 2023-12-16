@@ -1,0 +1,20 @@
+<form action="/posts/create" method="post" class="form">
+  <p class="content">Username: {{user.username}}</p>
+  <br />
+  <div>
+    <label for="title">Title</label>
+    <input name="title" type="text" />
+  </div>
+  <br />
+  <div>
+    <label for="content">Content</label>
+    <input name="content" type="text" />
+  </div>
+  <br />
+  <div>
+    <label for="published">Published</label>
+    <input name="published" type="checkbox" />
+  </div>
+  <br />
+  <button type="submit">Create</button>
+</form>

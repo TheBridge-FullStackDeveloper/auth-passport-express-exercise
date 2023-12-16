@@ -1,0 +1,17 @@
+<h1>Welcome, {{user.username}} !</h1>
+<div>
+  <p class="content">My username: {{user.username}}</p>
+  <br />
+  <p class="content">My user ID: {{user.id}}</p>
+</div>
+<div>
+  <ul>
+    {{#each posts}}
+      <li class="singlePost"><a href="/posts/{{this.id}}">{{capitalize
+            this.title
+          }}<br />{{capitalize this.author.username}}<br />{{formatDate
+            this.post.createdAt
+          }}</a></li>
+    {{/each}}
+  </ul>
+</div>
