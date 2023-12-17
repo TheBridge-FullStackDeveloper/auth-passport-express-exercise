@@ -12,6 +12,7 @@ const hbs = create({
   partialsDir: 'views/partials',
   helpers: require('./utils/helpers'),
 });
+const flash = require('connect-flash');
 require('dotenv').config();
 
 app.use(morgan('dev'));
@@ -27,6 +28,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 
 require('./config/passport');
@@ -36,11 +38,7 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
-app.get('/', (req, res) => {
-  res.render('home', {
-      title: 'Home Page'
-  });
-});
+
 
 const router = require('./routes');
 app.use('/', router);

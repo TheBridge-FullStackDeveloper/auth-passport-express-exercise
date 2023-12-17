@@ -4,6 +4,14 @@ const router = express.Router();
 const passport = require('passport');
 const prisma = require ('../prisma/seed');
 
+router.get('/login', (req, res) => {
+  res.render('login', { error: req.flash("error")});
+});
+
+router.get('/register', (req, res) => {
+  res.render('register');
+});
+
 // Ruta de registro
 router.post('/register', async (req, res) => {
   try {
@@ -23,17 +31,11 @@ router.post('/register', async (req, res) => {
 
 // Ruta de inicio de sesión
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/posts/login',
+  successRedirect: '/posts/profile',
+  failureRedirect: '/login',
   failureFlash: true,
 }));
 
-router.get('/login', (req, res) => {
-  res.render('login');
-});
 
-router.get('/register', (req, res) => {
-  res.render('register');
-});
 
 module.exports = router;
