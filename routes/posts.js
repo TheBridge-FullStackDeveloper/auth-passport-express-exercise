@@ -97,12 +97,7 @@ router.get("/delete/:id", async (req, res) => {
       author: true,
     },
   });
-
-  res.render("deletePost", {
-    title: deleteID.title,
-    posts: deleteID,
-    user: req.user,
-  });
+  res.render("deletePost", { title: deleteID.title, posts: deleteID });
 });
 
 router.delete("/delete/:id", async (req, res) => {
