@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="../public/updateProfile.css">
+
+<title>{{title}}</title>
+<div class="updateProfile">
+    <form action='/user/update?_method=PUT' method='post'>
+        <div>
+            <label for="email">Email</label>
+            <input name="email" type="email" value="{{user.email}}">
+        </div>
+        <button type="submit">Update</button>
+    </form>
+</div>
+

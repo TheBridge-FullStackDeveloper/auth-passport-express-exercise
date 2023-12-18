@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="../public/post.css">
+
+<div class="post">
+    <h1>POST</h1>
+    <h2>{{post.title}}</h2>
+    <p>{{post.content}}</p>
+    <div class="button-container">
+        <a href="/user/update/{{post.id}}">
+            <button>Editar</button>
+        </a>
+        <a>
+            <form action="/user/delete/{{post.id}}?_method=DELETE" method="post">
+                <button>Borrar</button>
+            </form>
+        </a>
+    </div>
+</div>
+

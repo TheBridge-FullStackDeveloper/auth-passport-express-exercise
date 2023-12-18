@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="../public/profile.css">
+
+<div class="profile">
+    <h1>PROFILE</h1>
+    <h2>User: {{ user.username }}</h2>
+    <p>Email: {{user.email}}</p>
+    <a href='/user/updateProfile'><button>Update Profile</button></a></li>
+    <a href='/user/delete'><button>Delete Profile</button></a></li>
+
+    <div class="posts">
+
+    <h1>POSTS</h1>
+    <div>
+        {{#each user.posts}}
+        <a href="/user/{{id}}">
+            <h2>{{title}}</h2>
+            <p>{{content}}</p>
+            <p>{{formatDate createdAt}}</p>
+        </a>
+        {{/each}}
+    </div>
+
+</div>
