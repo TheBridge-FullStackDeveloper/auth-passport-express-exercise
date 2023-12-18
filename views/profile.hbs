@@ -1,0 +1,15 @@
+<h1>Profile</h1>
+<p>username: {{user.userName}}</p>
+<p>userId: {{user.id}}</p>
+<p>User since:{{formatDate user.createdAt}}</p>
+<div>
+  <h2>Your posts:</h2>
+  <ul>
+    {{#each posts}}
+        <li><a href="/posts/{{this.id}}">{{capitalize this.title}}</a></li>
+        <p>Created: {{formatDate this.createdAt}}</p>
+    {{/each}}
+  </ul>
+</div>
+
+<a href="/auth/logout">Logout</a>
