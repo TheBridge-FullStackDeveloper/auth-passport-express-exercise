@@ -13,6 +13,7 @@ const hbs = create({
   partialsDir: "views/partials",
   helpers: require("./utils/helpers"),
 });
+const methodOverride = require("method-override");
 
 app.use(
   session({
@@ -30,6 +31,7 @@ app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", "./views");
 app.use(passport.session());
+app.use(methodOverride("_method"));
 
 require("./config/passport");
 

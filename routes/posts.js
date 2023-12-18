@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../prisma");
-const fetchAndSortPosts = require("../controllers/fetchAndSortPosts")
+const fetchAndSortPosts = require("../controllers/fetchAndSortPosts");
 router.get("/", async (req, res) => {
   try {
     const allPosts = await fetchAndSortPosts(prisma);
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 router.get("/create", async (req, res) => {
   res.render("newPost", { title: "Create new post" });
 });
-router.post('/create', async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     const { title, content } = req.body;
     const authorId = req.user.id;
@@ -36,14 +36,15 @@ router.post('/create', async (req, res) => {
     res.redirect(`/posts/${newPost.id}`);
   } catch (error) {
     console.error(error);
-    res.json('Server Error');
+    res.json("Server Error");
   }
 });
 
 router.get("/edit/:id", async (req, res) => {
+  const postId = req.params.id;
   const editID = await prisma.post.findUnique({
     where: {
-      id: req.params.id,
+      id: postId,
     },
   });
   res.render("editPost", { title: editID.title, posts: editID });
@@ -51,39 +52,84 @@ router.get("/edit/:id", async (req, res) => {
 
 router.put("/edit/:id", async (req, res) => {
   try {
-    const { title, content, published } = req.body;
-    const editPost = await prisma.post.update({
+    const postId = req.params.id;
+    const { title, content } = req.body;
+
+    const postToEdit = await prisma.post.findUnique({
       where: {
-        id: req.params.id,
+        id: postId,
       },
-      data: {
-        title,
-        content,
+      include: {
+        author: true,
       },
     });
-    res.redirect(`/posts/${editPost.id}`);
+
+    const isAuthor = req.user && req.user.id === postToEdit.author.id;
+
+    if (isAuthor) {
+      const editPost = await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          title,
+          content,
+        },
+      });
+
+      res.redirect(`/posts/${editPost.id}`);
+    } else {
+      res.status(403).send("Unauthorized: You cannot edit this post.");
+    }
   } catch (error) {
     res.json("Server Error");
   }
 });
 
 router.get("/delete/:id", async (req, res) => {
+  const postId = req.params.id;
+
   const deleteID = await prisma.post.findUnique({
     where: {
-      id: req.params.id,
+      id: postId,
+    },
+    include: {
+      author: true,
     },
   });
-  res.render("deletePost", { title: deleteID.title, posts: deleteID });
+
+  res.render("deletePost", {
+    title: deleteID.title,
+    posts: deleteID,
+    user: req.user,
+  });
 });
 
 router.delete("/delete/:id", async (req, res) => {
   try {
-    const deletePost = await prisma.post.delete({
+    const postId = req.params.id;
+
+    const postToDelete = await prisma.post.findUnique({
       where: {
-        id: req.params.id,
+        id: postId,
+      },
+      include: {
+        author: true,
       },
     });
-    res.redirect("/");
+
+    const isAuthor = req.user && req.user.id === postToDelete.author.id;
+
+    if (isAuthor) {
+      const deletePost = await prisma.post.delete({
+        where: {
+          id: postId,
+        },
+      });
+      res.redirect("/");
+    } else {
+      res.status(403).send("Unauthorized: You cannot delete this post.");
+    }
   } catch (error) {
     res.json("Server Error");
   }
@@ -96,8 +142,8 @@ router.get("/:id", async (req, res) => {
         id: req.params.id,
       },
       include: {
-        author: true
-      }
+        author: true,
+      },
     });
     res.render("post", { title: postID.title, posts: postID, user: req.user });
   } catch (error) {

@@ -11,11 +11,15 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  userName  String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  posts     Post[]
+  id             String   @id @default(uuid())
+  userName       String   @unique
+  password       String
+  email          String   @unique
+  githubId       String?  @unique
+  githubUsername String?
+  githubEmail    String?
+  createdAt      DateTime @default(now())
+  posts          Post[]
 }
 
 model Post {
