@@ -26,7 +26,7 @@ router.get('/profile', isAuthenticated, async (req, res) => {
             authorUserName: req.user.userName,
         }
     });
-    res.render('profile', { title: 'Create a Post', user: req.user, post: profilePosts })
+    res.render('profile', { title: 'My profile', user: req.user, post: profilePosts })
 });
 
 router.post('/profile', async (req, res) => {
@@ -38,7 +38,7 @@ router.post('/profile', async (req, res) => {
             authorUserName: req.user.userName,
         },
     });
-    res.redirect('/posts');
+    res.redirect('/posts/profile');
 });
 
 router.get('/profile/:id', async (req, res) => {
@@ -51,7 +51,7 @@ router.get('/profile/:id', async (req, res) => {
     res.render('idpost', { title: updatedPost?.authorUserName, post: updatedPost });
 });
 
-/*router.put('/profile/:id', async (req, res) => {
+router.put('/profile/update/:id', async (req, res) => {
     const { id } = req.params;
 
     await prisma.post.update({
@@ -63,10 +63,10 @@ router.get('/profile/:id', async (req, res) => {
             content: req.body.content,
         },
     });
-    res.redirect('/posts');
-});*/
+    res.redirect('/posts/profile');
+});
 
-/*router.delete('/profile/:id', async (req, res) => {
+router.delete('/profile/delete/:id', async (req, res) => {
     const { id } = req.params;
 
     await prisma.post.delete({
@@ -74,10 +74,22 @@ router.get('/profile/:id', async (req, res) => {
             id,
         },
     });
-    res.redirect('/posts');
-});*/
+    res.redirect('/posts/profile');
+});
 
-router.get('/profile/:id', async (req, res) => {
+router.get('/profile/update/:id', async (req, res) => {
+    const { id } = req.params;
+
+    const findPost = await prisma.post.findUnique({
+        where: {
+            id,
+        },
+    });
+
+    res.render('updateid', { title: findPost?.title, post: findPost})
+});
+
+router.get('/profile/delete/:id', async (req, res) => {
     const { id } = req.params;
 
     const findPost = await prisma.post.findUnique({
